@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio · Japanese Particles Made Simple</title>
+<meta name="description" content="Native-speaker audio for the example sentences in Japanese Particles Made Simple.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Klee+One:wght@400;600&display=swap">
+<style>
+  :root {
+    --ink: #1d2430;
+    --indigo: #1e3a5f;
+    --red: #b23a26;
+    --rule: #c9d1dc;
+    --muted: #4a5566;
+    --paper: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 18px;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+  }
+  .jp { font-family: "Klee One", serif; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  header.top { padding: 40px 0 8px; }
+  .running {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--indigo);
+    border-bottom: 1px solid var(--indigo); padding-bottom: 6px;
+  }
+  .running span:last-child { color: var(--muted); }
+  h1 { margin: 28px 0 6px; font-size: 40px; line-height: 1.1; font-weight: 600; color: var(--indigo); }
+  .lead { margin: 0 0 6px; font-size: 19px; }
+  .note { margin: 0; color: var(--muted); font-size: 16px; }
+  .zip { display: none; margin-top: 14px; }
+  .zip.ready { display: inline-block; }
+
+  nav.days {
+    position: sticky; top: 0; z-index: 5; background: var(--paper);
+    border-bottom: 1px solid var(--rule); margin-top: 24px;
+  }
+  nav.days ul {
+    list-style: none; margin: 0 auto; padding: 10px 20px; display: flex; gap: 8px; overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav.days ul::-webkit-scrollbar { display: none; }
+  nav.days a {
+    display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; white-space: nowrap;
+    border: 1.5px solid var(--indigo); color: var(--indigo); text-decoration: none; font-size: 16px;
+  }
+  nav.days a:hover, nav.days a:focus-visible { background: var(--indigo); color: #fff; outline: none; }
+
+  section.day { padding: 36px 0 8px; }
+  .day-head { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .pbox {
+    font-family: "Klee One", serif; color: var(--indigo); font-size: 26px; line-height: 1;
+    border: 1.5px solid var(--indigo); padding: 12px 14px; white-space: nowrap;
+  }
+  .day-head h2 { margin: 0; font-size: 28px; font-weight: 600; color: var(--indigo); line-height: 1.15; }
+  .day-head .page { display: block; font-size: 15px; font-weight: 400; color: var(--muted); letter-spacing: .04em; }
+  h3 {
+    margin: 22px 0 0; font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--indigo); border-bottom: 1px solid var(--indigo); padding-bottom: 4px;
+  }
+
+  ol.items { list-style: none; margin: 0; padding: 0; }
+  li.item {
+    display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; align-items: center;
+    padding: 14px 0; border-bottom: 1px dotted #8a96a8;
+  }
+  .sent { font-size: 25px; line-height: 1.5; color: #111; word-break: keep-all; overflow-wrap: anywhere; }
+  .sent .w { white-space: nowrap; }
+  .p { text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+  .romaji { font-style: italic; color: var(--muted); font-size: 17px; }
+  .romaji .rp { color: var(--red); font-weight: 600; font-style: italic; }
+  .en { font-size: 17px; }
+  .controls { display: flex; gap: 8px; grid-row: 1 / span 3; grid-column: 2; align-self: center; }
+  .play {
+    appearance: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    min-width: 92px; min-height: 44px; padding: 0 12px; cursor: pointer;
+    font: inherit; font-size: 16px; color: var(--indigo); background: #fff; border: 1.5px solid var(--indigo);
+  }
+  .play svg { width: 14px; height: 14px; flex: none; }
+  .play:hover { background: #eef2f7; }
+  .play:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+  .play[aria-pressed="true"] { background: var(--indigo); color: #fff; }
+  .play[disabled] { cursor: not-allowed; color: #6b7686; border-color: #9aa5b4; background: #fff; }
+  .dl { grid-column: 1 / -1; font-size: 15px; color: var(--muted); }
+  .dl a { color: var(--indigo); }
+  .dl .missing { color: #6b7686; }
+
+  footer { margin: 48px 0 40px; padding-top: 10px; border-top: 1px solid var(--indigo); font-size: 15px; color: var(--muted); }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    h1 { font-size: 32px; }
+    li.item { grid-template-columns: 1fr; }
+    .controls { grid-row: auto; grid-column: 1; }
+    .play { flex: 1; }
+    .sent { font-size: 23px; }
+  }
+</style>
+</head>
+<body>
+<header class="top wrap">
+  <div class="running"><span>Audio</span><span>Japanese Particles Made Simple</span></div>
+  <h1>Listen and repeat</h1>
+  <p class="lead">Every example sentence from the workbook, read by a native speaker.</p>
+  <p class="note">Play each sentence at natural speed, then slowly. Pause and say it yourself before you move on.</p>
+  <a class="zip play" id="zip" href="audio/japanese-particles-audio.zip" download>Download all audio (ZIP)</a>
+</header>
+
+<nav class="days" aria-label="Sections">
+  <ul class="wrap" id="nav"></ul>
+</nav>
+
+<main class="wrap" id="main"></main>
+
+<footer class="wrap">
+  Audio for <i>Japanese Particles Made Simple</i>. For personal study with the workbook.
+</footer>
+
+<script>
+/* ------------------------------------------------------------------
+   Sentences. Each one is recorded once, at two speeds:
+     audio/<id>_natural.mp3   audio/<id>_slow.mp3
+   [brackets] mark the particle that is underlined.
+------------------------------------------------------------------- */
+const S = {
+  s01: ["わたし[は] みおです。", "Watashi [wa] Mio desu.", "I am Mio."],
+  s02: ["ねこ[が] います。", "Neko [ga] imasu.", "There is a cat."],
+  s03: ["パン[を] たべます。", "Pan [o] tabemasu.", "I eat bread."],
+  s04: ["しちじ[に] おきます。", "Shichiji [ni] okimasu.", "I get up at seven."],
+  s05: ["がっこう[で] べんきょうします。", "Gakkō [de] benkyō shimasu.", "I study at school."],
+  s06: ["にほん[へ] いきます。", "Nihon [e] ikimasu.", "I go to Japan."],
+  s07: ["けん[と] いきます。", "Ken [to] ikimasu.", "I go with Ken."],
+  s08: ["みお[の] かばん", "Mio [no] kaban", "Mio’s bag"],
+  s09: ["わたし[も] いきます。", "Watashi [mo] ikimasu.", "I am going too."],
+  s10: ["くじ[から] べんきょうします。", "Kuji [kara] benkyō shimasu.", "I study from nine."],
+  s11: ["じゅうじ[まで] べんきょうします。", "Jūji [made] benkyō shimasu.", "I study until ten."],
+  s12: ["だれ[が] きましたか。", "Dare [ga] kimashita ka.", "Who came?"],
+  s13: ["ほん[を] よみます。", "Hon [o] yomimasu.", "I read a book."],
+  s14: ["おんがく[を] ききます。", "Ongaku [o] kikimasu.", "I listen to music."],
+  s15: ["りんご[を] たべます。", "Ringo [o] tabemasu.", "I eat an apple."],
+  s16: ["がっこう[に] いきます。", "Gakkō [ni] ikimasu.", "I go to school."],
+  s17: ["がっこう[で] にほんご[を] べんきょうします。", "Gakkō [de] nihongo [o] benkyō shimasu.", "I study Japanese at school."],
+  s18: ["へや[に] ねこ[が] います。", "Heya [ni] neko [ga] imasu.", "There is a cat in the room."],
+  s19: ["おおさか[へ] いきます。", "Ōsaka [e] ikimasu.", "I am going to Osaka. (direction)"],
+  s20: ["おおさか[に] いきます。", "Ōsaka [ni] ikimasu.", "I am going to Osaka. (destination)"],
+  s21: ["けん[と] えいが[を] みます。", "Ken [to] eiga [o] mimasu.", "I watch a movie with Ken."],
+  s22: ["これ[は] みお[の] かばんです。", "Kore [wa] Mio [no] kaban desu.", "This is Mio’s bag."],
+  s23: ["にほん[の] ほんです。", "Nihon [no] hon desu.", "It is a Japanese book."],
+  s24: ["けん[も] がくせいです。", "Ken [mo] gakusei desu.", "Ken is a student too."],
+  s25: ["わたし[は] がくせいです。", "Watashi [wa] gakusei desu.", "I am a student."],
+  s26: ["くじ[から] じゅうじ[まで] べんきょうします。", "Kuji [kara] jūji [made] benkyō shimasu.", "I study from nine to ten."],
+  s27: ["うち[から] えき[まで] あるきます。", "Uchi [kara] eki [made] arukimasu.", "I walk from home to the station."],
+  s28: ["でんしゃ[で] いきます。", "Densha [de] ikimasu.", "I go by train."],
+  s29: ["バス[で] いきます。", "Basu [de] ikimasu.", "I go by bus."]
+};
+
+/* Sections follow the workbook pages. The anchor (#day1 ...) is what each QR code opens. */
+const SECTIONS = [
+  { id: "cheat-sheet", nav: "Cheat sheet", box: "は が を …", title: "Particle cheat sheet", page: 3,
+    groups: [["Examples", ["s01","s02","s03","s04","s05","s06","s07","s08","s09","s10","s11"]]] },
+  { id: "day1", nav: "Day 1", box: "は / が", title: "Topics and subjects", page: 4,
+    groups: [["Examples", ["s01","s12","s02"]]] },
+  { id: "day2", nav: "Day 2", box: "を", title: "Objects of actions", page: 6,
+    groups: [["Examples", ["s03","s13","s14"]], ["Say it aloud", ["s03","s15"]]] },
+  { id: "day3", nav: "Day 3", box: "に / で", title: "Places and destinations", page: 8,
+    groups: [["Examples", ["s16","s17","s18"]], ["Say it aloud", ["s16","s05"]]] },
+  { id: "day4", nav: "Day 4", box: "へ / に / と", title: "Direction and company", page: 10,
+    groups: [["Examples", ["s19","s20","s21"]]] },
+  { id: "day5", nav: "Day 5", box: "の / も", title: "Connections and addition", page: 12,
+    groups: [["Examples", ["s22","s23","s24"]], ["Say it aloud", ["s25","s24"]]] },
+  { id: "day6", nav: "Day 6", box: "から / まで / で", title: "Starting points and travel", page: 14,
+    groups: [["Examples", ["s26","s27","s28"]], ["Say it aloud", ["s29"]]] },
+  { id: "day7", nav: "Day 7", box: "Review", title: "Choose by meaning", page: 16,
+    groups: [["Examples", ["s13","s16","s05","s29"]]] }
+];
+
+const AUDIO_DIR = "audio/";
+const fileFor = (id, speed) => `${AUDIO_DIR}${id}_${speed}.mp3`;
+
+function esc(s) {
+  return s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+/* Japanese: underline [particle]; keep each word on one line. */
+function jpHTML(s) {
+  return s.split(" ").map(word =>
+    `<span class="w">${esc(word).replace(/\[(.+?)\]/g, '<span class="p">$1</span>')}</span>`
+  ).join(" ");
+}
+function romajiHTML(s) {
+  return esc(s).replace(/\[(.+?)\]/g, '<span class="rp">$1</span>');
+}
+const ICON_PLAY = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg>';
+const ICON_STOP = '<svg viewBox="0 0 14 14" aria-hidden="true"><rect x="2.5" y="2.5" width="9" height="9" fill="currentColor"/></svg>';
+
+/* ---------- build the page ---------- */
+const nav = document.getElementById("nav");
+const main = document.getElementById("main");
+
+SECTIONS.forEach(sec => {
+  nav.insertAdjacentHTML("beforeend", `<li><a href="#${sec.id}">${sec.nav}</a></li>`);
+  let html = `<section class="day" id="${sec.id}" aria-labelledby="${sec.id}-h">
+    <div class="day-head"><span class="pbox">${esc(sec.box)}</span>
+    <h2 id="${sec.id}-h">${sec.nav === "Cheat sheet" ? "" : sec.nav + " · "}${esc(sec.title)}<span class="page">Workbook page ${sec.page}</span></h2></div>`;
+  sec.groups.forEach(([label, ids]) => {
+    html += `<h3>${label}</h3><ol class="items">`;
+    ids.forEach(id => {
+      const [jp, ro, en] = S[id];
+      const plain = jp.replace(/[\[\]]/g, "");
+      html += `<li class="item" data-id="${id}">
+        <div class="sent jp" lang="ja">${jpHTML(jp)}</div>
+        <div class="romaji">${romajiHTML(ro)}</div>
+        <div class="en">${esc(en)}</div>
+        <div class="controls">
+          <button type="button" class="play" data-src="${fileFor(id, "natural")}" aria-pressed="false" aria-label="Play ${esc(plain)} at natural speed">${ICON_PLAY}<span>Natural</span></button>
+          <button type="button" class="play" data-src="${fileFor(id, "slow")}" aria-pressed="false" aria-label="Play ${esc(plain)} slowly">${ICON_PLAY}<span>Slow</span></button>
+        </div>
+        <div class="dl">MP3: <a href="${fileFor(id, "natural")}" download>natural</a> · <a href="${fileFor(id, "slow")}" download>slow</a></div>
+      </li>`;
+    });
+    html += `</ol>`;
+  });
+  html += `</section>`;
+  main.insertAdjacentHTML("beforeend", html);
+});
+
+/* ---------- one shared player ---------- */
+const player = new Audio();
+player.preload = "none";
+let current = null;
+
+function setIdle(btn) {
+  if (!btn) return;
+  btn.setAttribute("aria-pressed", "false");
+  btn.querySelector("svg").outerHTML = ICON_PLAY;
+}
+function setPlaying(btn) {
+  btn.setAttribute("aria-pressed", "true");
+  btn.querySelector("svg").outerHTML = ICON_STOP;
+}
+function markMissing(btn) {
+  btn.disabled = true;
+  btn.querySelector("span").textContent = "Coming soon";
+}
+
+main.addEventListener("click", e => {
+  const btn = e.target.closest("button.play");
+  if (!btn || btn.disabled) return;
+  if (current === btn && !player.paused) {      // tap again to stop
+    player.pause(); player.currentTime = 0; setIdle(btn); current = null; return;
+  }
+  setIdle(current);
+  current = btn;
+  player.src = btn.dataset.src;
+  setPlaying(btn);
+  player.play().catch(() => { setIdle(btn); current = null; });
+});
+player.addEventListener("ended", () => { setIdle(current); current = null; });
+player.addEventListener("error", () => {
+  if (current) { markMissing(current); setIdle(current); current = null; }
+});
+
+/* ---------- mark files that are not uploaded yet (skipped when opened as a local file) ---------- */
+if (location.protocol.startsWith("http")) {
+  const check = src => fetch(src, { method: "HEAD" }).then(r => r.ok).catch(() => false);
+  const srcs = [...new Set([...document.querySelectorAll("button.play")].map(b => b.dataset.src))];
+  srcs.forEach(src => check(src).then(ok => {
+    if (ok) return;
+    document.querySelectorAll(`button.play[data-src="${src}"]`).forEach(markMissing);
+    document.querySelectorAll(`.dl a[href="${src}"]`).forEach(a => {
+      a.outerHTML = `<span class="missing">${a.textContent} (coming soon)</span>`;
+    });
+  }));
+  check("audio/japanese-particles-audio.zip").then(ok => { if (ok) document.getElementById("zip").classList.add("ready"); });
+}
+</script>
+</body>
+</html>
